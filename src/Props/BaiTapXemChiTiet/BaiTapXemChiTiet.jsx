@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SanPhamComponent from './SanPhamComponent'
 
 const dataProducts = [
     { "maSP": 1, "tenSP": "VinSmart Live", "manHinh": "AMOLED, 6.2, Full HD+", "heDieuHanh": "Android 9.0 (Pie)", "cameraTruoc": "20 MP", "cameraSau": "Chính 48 MP & Phụ 8 MP, 5 MP", "ram": "4 GB", "rom": "64 GB", "giaBan": 5700000, "hinhAnh": "./img/vsphone.jpg" },
@@ -17,19 +18,14 @@ export default class BaiTapXemChiTiet extends Component {
     renderProductList = () => {
         return dataProducts.map((sanPham)=>{
             return  <div className='col-4' key={sanPham.maSP}>
-            <div className='card'>
-                <img src={sanPham.hinhAnh} alt='...' height={350} />
-                <div className='card-body'>
-                    <h3>{sanPham.tenSP}</h3>
-                    <p>{sanPham.giaBan}</p>
-                    <button className='btn btn-dark' onClick={()=>{
-                        this.setState({
-                            spChiTiet:sanPham
-                        })
-                    }}>Xem chi tiết</button>
-                </div>
-            </div>
+                <SanPhamComponent sanPham={sanPham} handleClickXemChiTiet={this.xemChiTiet} />
         </div>
+        })
+    }
+
+    xemChiTiet = (sanPham) => {
+        this.setState({
+            spChiTiet: sanPham
         })
     }
 
