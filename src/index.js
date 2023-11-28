@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './assets/scss/style.scss'
 
 //Cấu hình router dom
-import {BrowserRouter,Routes,Route, NavLink, Navigate} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
 
 import BaiTapGioHang from './Props/BaiTapGioHang/BaiTapGioHang'
 import ChangeColor from './StateDemo/ChangeColor';
@@ -17,19 +17,32 @@ import Page404 from './Pages/Page404';
 import Admin from './Pages/Admin';
 import ReactForm from './Pages/ReactForm/ReactForm';
 import ReactLifecycle from './Pages/ReactLifeCycle/ReactLifecycle';
+//JSX
+//Cấu hình redux
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import ChangeNumberRedux from './DemoRedux/ChangeNumberRedux';
+import ChangeCarColor from './DemoRedux/ChangeCarColor';
+
+
+
 //Tạo root trên thẻ div#root
 const root = ReactDOM.createRoot(document.getElementById('root'));
-//JSX
+
+
 root.render(
-    <BrowserRouter> 
+  <Provider store={store}>
+    <BrowserRouter>
       <Routes>
         <Route path='' element={<HomeTemplate />}>
-          <Route index element={<div>Trang chủ</div> }></Route>
+          <Route index element={<div>Trang chủ</div>}></Route>
           <Route path='gio-hang' element={<BaiTapGioHang />} />
-          <Route path='bt-change-color' element={<ChangeColor /> }></Route>
-          <Route path='login' element={<Login /> }></Route>
+          <Route path='bt-change-color' element={<ChangeColor />}></Route>
+          <Route path='login' element={<Login />}></Route>
           <Route path='react-form' element={<ReactForm />}></Route>
           <Route path='react-life-cycle' element={<ReactLifecycle />}></Route>
+          <Route path='redux-change-number' element={<ChangeNumberRedux />}></Route>
+          <Route path='redux-change-car' element={<ChangeCarColor />}></Route>
         </Route>
         <Route path='user' element={<UserTemplate />}>
           <Route index element={<Login />}></Route>
@@ -38,11 +51,8 @@ root.render(
         </Route>
         <Route path='admin' element={<Admin />}></Route>
         <Route path='*' element={<Navigate to="" />} />
-
-    
-      
-        
       </Routes>
     </BrowserRouter>
+  </Provider>
 );
 

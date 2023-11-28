@@ -30,10 +30,10 @@ export default class Header extends Component {
                                 <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} to="/react-life-cycle"  style={({isActive}) => isActive ? {border:'1px solid orange'} : {} }>React Lifecycle</NavLink>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <a className="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Redux</a>
                                 <div className="dropdown-menu" aria-labelledby="dropdownId">
-                                    <a className="dropdown-item" href="#">Action 1</a>
-                                    <a className="dropdown-item" href="#">Action 2</a>
+                                    <NavLink className="dropdown-item" to="/redux-change-number">Change number</NavLink>
+                                    <NavLink className="dropdown-item" to="/redux-change-car">Change car</NavLink>
                                 </div>
                             </li>
                         </ul>

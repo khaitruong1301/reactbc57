@@ -19,6 +19,10 @@ export default class ProductForm extends Component {
         },
         isSubmit: false
     }
+
+
+
+
     handleChangeInput = (e) => {
         //Xử lý values
         let tag = e.target; //Lấy ra dom hiện tại đang gõ
@@ -78,10 +82,30 @@ export default class ProductForm extends Component {
         //Truyền state.values ra cho hàm addProduct ở component React Form
         addProduct(this.state.values);
     }
-
+    //Cách 1: Can thiệp gán props vào state trước render của component dựa vào :static getDerivedStateFromProps
+    // static getDerivedStateFromProps(newProps,currentState){
+    //     //Can thiệp vào quá trình trước khi render (bấm nút edit ở cha) => lấy state product edit gán vào state.value
+    //     console.log(newProps)
+    //     console.log(currentState)
+    //     if(newProps.productEdit.id !== currentState.values.id){
+    //         //Hành động click nút chỉnh sửa
+    //         currentState.values = {...newProps.productEdit}
+    //     }
+    //     //Trả ra state mới để hàm render lấy dữ liệu làm this.state
+    //     return currentState
+    // }
+    //Cách 2: dùng componentWillReceiveProps can thiệp props đưa vào state trước render
+    componentWillReceiveProps(newProps) {
+        //state thay đổi thì componentWillReceiveProps không chạy
+        this.setState({
+            values:newProps.productEdit
+        })
+    }
     render() {
+        // this.props
         console.log(this.state);
-        let {id,name,price,img,type,description} = this.props.productEdit;
+        //Chuyển dữ liệu về state của component
+        let {id,name,price,img,type,description} = this.state.values;
         return (
             <form className='card' onSubmit={this.handleSubmit}>
                 <div className='card-header bg-dark text-white'>Product info</div>
@@ -138,11 +162,13 @@ export default class ProductForm extends Component {
                 </div>
                 <div className='card-footer'>
                     <button disabled={!this.state.isSubmit} type="submit" className="btn btn-primary">Submit</button>
+
+                    <button disabled={!this.state.isSubmit} type='button' className='btn btn-success mx-2' onClick={()=>{
+                        //Code chức năng cập nhật dữ liệu arrayProduct
+                        this.props.updateProduct(this.state.values)
+                    }}>Update</button>
                 </div>
             </form>
-
-
-
         )
     }
 }
